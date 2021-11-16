@@ -143,7 +143,7 @@ export class Quiz {
     return true;
   }
 
-  private _getResult() {
+  private _getResult(): number | null {
     switch (this.operator) {
       case ADD:
         return this.leftNumber + this.rightNumber;

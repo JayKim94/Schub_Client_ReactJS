@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Space } from '../models/Space';
+import { Painter } from '../models/Painter';
 
 type BackgroundCanvasProps = {
 
@@ -7,12 +7,12 @@ type BackgroundCanvasProps = {
 
 export const BackgroundCanvas = (props: BackgroundCanvasProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [space, setSpace] = useState<Space | null>(null);
+  const [painter, setPainter] = useState<Painter | null>(null);
 
-  (function animate() {
+  function animate(): void {
     requestAnimationFrame(animate);
-    if (space) space.update();
-  })()
+    if (painter) painter.update();
+  }
 
   useEffect(() => {
     if (canvasRef.current) {
@@ -22,8 +22,8 @@ export const BackgroundCanvas = (props: BackgroundCanvasProps) => {
       const context = canvasRef.current.getContext('2d') as CanvasRenderingContext2D;
       const starsCount = 300;
 
-      setSpace(
-        new Space(
+      setPainter(
+        new Painter(
           context,
           innerWidth,
           innerHeight,
