@@ -1,9 +1,15 @@
 import Star from "./Star";
 
+/**
+ * Constants
+ */
 const BG_RADIANS = 0.0001;
 const BG_ALPHA = 0.98;
 const BG_ROTATE_RADIANS = 0.0005;
 
+/**
+ * Responsible for drawing on the canvas element with its given context
+ */
 export class Space {
   public backgroundRotateRadians = BG_RADIANS;
   public backgroundAlpha = BG_ALPHA;
@@ -33,7 +39,11 @@ export class Space {
     this.stars.forEach(star => star.spawn());
   }
 
-  update() {
+  /**
+   * Clears and draws canvas on every frame
+   * (is to be called inside of requestAnimationFrame)
+   */
+  public update(): void {
     // clears canvas
     this.context.fillStyle = `rgba(30, 30, 30, ${this.backgroundAlpha})`;
     this.context.fillRect(0, 0, this.canvasWidth, this.canvasWidth);
@@ -75,7 +85,10 @@ export class Space {
     this.context.restore();
   }
 
-  rotate() {
+  /**
+   * Triggers rotation of the canvas
+   */
+  public rotate(): void {
     if (this.rotating) {
       console.info("Canvas is in rotation");
       return;
@@ -86,14 +99,22 @@ export class Space {
     this.rotating = true;
   }
 
-  reset() {
+  /**
+   * Resets the rotation to origin
+   */
+  public reset(): void {
     const acceleration = 0.001;
 
     this.resetting = true;
     this.rotateValue = -(this.rotateValue + acceleration);
   }
 
-  setSpeed(speed: number) {
+  /**
+   * Sets the speed value for the stars.
+   * Creates a background visual effect for the traveling rocket.
+   * @param speed A value on which the rocket travels
+   */
+  public setSpeed(speed: number): void {
     this.speed = speed;
     this.stars.forEach(star => star.velocity.x = this.speed);
   }

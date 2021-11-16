@@ -1,5 +1,8 @@
 import { random } from "../shared/utils";
 
+/**
+ * Constants
+ */
 const ADD: string = '+';
 const SUBTRACT: string = '-';
 const MULTIPLY: string = '*';
@@ -17,36 +20,25 @@ export class Quiz {
     this.operator = ADD;
   }
 
-  _getResult() {
-    switch (this.operator) {
-      case ADD:
-        return this.leftNumber + this.rightNumber;
-      case SUBTRACT:
-        return this.leftNumber - this.rightNumber;
-      case MULTIPLY:
-        return this.leftNumber * this.rightNumber;
-      case DIVIDE:
-        return this.leftNumber / this.rightNumber;
-      default:
-        return null;
-    }
-  }
-
-  next(userInput: string): boolean {
+  /**
+   * Checks the answer and generates next quiz.
+   * Returns false immediately, if the input is not a match.
+   * @param userInput The value entered by the player
+   * @returns True if the input matches the result, otherwise false
+   */
+  public next(userInput: string): boolean {
     const result = this._getResult();
 
     /**
-     * @Wrong
+     * Wrong
      */
     if (!result || Number(userInput) !== result) {
       return false;
     }
-
     const roll = Math.random();
     this.leftNumber = result as number;
-
     /**
-     * @Under_10
+     * Under_10
      */
     if (this.leftNumber < 10) {
       const chanceMultiply = .55;
@@ -61,9 +53,8 @@ export class Quiz {
 
       return true;
     }
-
     /**
-     * @Under_20
+     * Under_20
      */
     if (this.leftNumber < 20) {
       const roll = Math.random();
@@ -88,9 +79,8 @@ export class Quiz {
         this.rightNumber = random(2, 9);
       }
     }
-
     /**
-     * @Under_30
+     * Under_30
      */
     if (this.leftNumber < 30) {
       const roll = Math.random();
@@ -108,9 +98,8 @@ export class Quiz {
 
       return true;
     }
-
     /**
-     * @Under_50
+     * Under_50
      */
     if (this.leftNumber < 50) {
       const roll = Math.random();
@@ -133,9 +122,8 @@ export class Quiz {
 
       return true;
     }
-
     /**
-     * @Over_50
+     * Over_50
      */
     // 55%
     if (roll < .55 && this.leftNumber % 3 === 0) {
@@ -153,5 +141,20 @@ export class Quiz {
     }
 
     return true;
+  }
+
+  private _getResult() {
+    switch (this.operator) {
+      case ADD:
+        return this.leftNumber + this.rightNumber;
+      case SUBTRACT:
+        return this.leftNumber - this.rightNumber;
+      case MULTIPLY:
+        return this.leftNumber * this.rightNumber;
+      case DIVIDE:
+        return this.leftNumber / this.rightNumber;
+      default:
+        return null;
+    }
   }
 }

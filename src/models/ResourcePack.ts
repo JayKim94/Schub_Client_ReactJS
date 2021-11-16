@@ -1,5 +1,8 @@
 import { AudioResource } from "./AudioResource";
 
+/**
+ * Static class that fetches and contains essential resource files
+ */
 export abstract class ResourcePack {
   public static sounds: {
     background: AudioResource,

@@ -17,13 +17,19 @@ export default class Star {
     private context: CanvasRenderingContext2D
   ) { }
 
-  update() {
+  /**
+   * Updates current velocity and draws itself
+   */
+  public update(): void {
     this.x -= this.velocity.x;
     this.y -= this.velocity.y;
     this._draw();
   }
 
-  spawn() {
+  /**
+   * Generates itself randomly on the canvas with randomly applied styles
+   */
+  public spawn(): void {
     if (this.isSpawned) {
       this.respawn();
       return;
@@ -35,7 +41,10 @@ export default class Star {
     this._getRandomStyle();
   }
 
-  respawn() {
+  /**
+   * Relocates itself to the starting line of the canvas(left-end)
+   */
+  public respawn(): void {
     if (!this.isSpawned) {
       console.warn("Star cannot be respawned if not spawned");
       return;
@@ -46,7 +55,7 @@ export default class Star {
     this._getRandomStyle();
   }
 
-  _draw() {
+  private _draw() {
     this.context.beginPath();
     this.context.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
     this.context.shadowBlur = 10;
@@ -56,7 +65,7 @@ export default class Star {
     this.context.closePath();
   }
 
-  _getRandomStyle() {
+  private _getRandomStyle() {
     const hue = random(70, 270);
     const opacity = 0.2 + (Math.random() / 2);
 
