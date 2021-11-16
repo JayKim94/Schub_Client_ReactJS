@@ -2,7 +2,8 @@ export class AudioResource {
   private audio: HTMLAudioElement;
 
   constructor(src: string) {
-    this.audio = new Audio(src);
+    const data = require(src);
+    this.audio = new Audio(data);
   }
 
   play(fadeIn: boolean = false): void {
@@ -11,10 +12,14 @@ export class AudioResource {
     this.audio.play();
   }
 
+  setVolume(volume: number) {
+    this.audio.volume = volume;
+  }
+
   _fadeIn() {
     let v = 0;
 
-    function draw() {
+    function animate() {
 
     }
   }

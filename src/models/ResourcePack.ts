@@ -1,26 +1,23 @@
-export class ResourcePack {
-  public sounds: {
-    background: HTMLAudioElement,
-    correct: HTMLAudioElement,
-    wrong: HTMLAudioElement,
-    levelup: HTMLAudioElement,
-  }
+import { AudioResource } from "./AudioResource";
 
-  constructor(
-  ) {
-    const background = require('../resources/background_music.mp3');
-    const correct = require('../resources/correct.wav');
-    const wrong = require('../resources/wrong.mp3');
-    const levelup = require('../resources/level_up.mp3');
+export abstract class ResourcePack {
+  public static sounds: {
+    background: AudioResource,
+    correct: AudioResource,
+    wrong: AudioResource,
+    levelup: AudioResource,
+    countdown: AudioResource,
+  } = {
+      background: new AudioResource('../resources/background_music.mp3'),
+      correct: new AudioResource('../resources/correct.wav'),
+      wrong: new AudioResource('../resources/wrong.mp3'),
+      levelup: new AudioResource('../resources/level_up.mp3'),
+      countdown: new AudioResource('../resources/count.wav'),
+    };
 
-    this.sounds = {
-      background: new Audio(background),
-      correct: new Audio(correct),
-      wrong: new Audio(wrong),
-      levelup: new Audio(levelup)
-    }
-
-    this.sounds.background.volume = 0.5;
-    this.sounds.correct.volume = 0.25;
-  }
+  public static images: {
+    rocket: NodeRequire
+  } = {
+      rocket: require('../resources/rocket.svg')
+    };
 }
